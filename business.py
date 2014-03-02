@@ -9,6 +9,20 @@ add_header = {
               "User-Agent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.117 Safari/537.36",
               }
 
+ip_list = []
+def get_virtual_ip():
+    global ip_list
+    first = 10
+    while True:
+        second = random.randint(2,250)
+        third = random.randint(2,250)
+        fourth = random.randint(2,250)
+        ip = "%d.%d.%d.%d" % (first,second,third,fourth)
+        if ip not in ip_list:
+            ip_list.append(ip)
+            break
+    return ip
+
 class SohuMailbox(object):
     def __init__(self):
         self.__browser = session.Session()
@@ -46,6 +60,9 @@ class SohuMailbox(object):
         import copy
         new_add_header = copy.copy(add_header)
         #new_add_header["Referer"] = "http://passport.sohu.com/web/Passportregister.action"
+        virtual_ip = get_virtual_ip()
+        new_add_header["X-Forwarded-For"] = virtual_ip
+        new_add_header["X-Real-IP"] = virtual_ip
         response = self.__browser.send_form(action,"POST",data,new_add_header)
         html = response.body
         if not html:
@@ -84,6 +101,16 @@ class SohuMailbox(object):
             handler = open("code.png","wb")
             handler.write(response.body)
             handler.close()
+            #set ppuv cookie
+            ppuv = self.calc_sohu_ppuv()
+            stg = self.__browser.get_cookie_stg()
+            stg.add_cookie_pair(".sohu.com","/",("PPUV",ppuv))
             return True
         return (False,response.error)
+
+    @staticmethod
+    def calc_sohu_ppuv():
+        ppuv = int(time.time()*1000)*1000 + int(random.random()*1000)
+        return str(ppuv)
+
 

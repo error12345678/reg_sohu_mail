@@ -25,7 +25,6 @@
     <Compile Include="account_mgr.py" />
     <Compile Include="base.py" />
     <Compile Include="business.py" />
-    <Compile Include="ParserFrame.py" />
     <Compile Include="reg_sohu_mail.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />

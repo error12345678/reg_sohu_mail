@@ -64,6 +64,7 @@ class Frame(wx.Frame):   #2 wx.Frame子类
         image = wx.Image('code.png', wx.BITMAP_TYPE_ANY)
         temp = image.ConvertToBitmap()
         self.bmp.SetBitmap(temp)
+        self.code_ctrl.SetValue("")
 
     def OnSubmit(self, event):
         code = self.code_ctrl.GetLineText(0)
@@ -78,7 +79,8 @@ class Frame(wx.Frame):   #2 wx.Frame子类
         pass
 
     def OnView(self,event):
-        pass
+        import os
+        os.system("notepad reglist.txt")
 
     def OnCloseWindow(self, event):
         self.Destroy()
