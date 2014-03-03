@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{92842f80-e0d7-4302-9c74-fc14afb8e9d8}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>reg_sohu_mail.py</StartupFile>
+    <StartupFile>account_post_process.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -23,6 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="account_mgr.py" />
+    <Compile Include="account_post_process.py" />
     <Compile Include="base.py" />
     <Compile Include="business.py" />
     <Compile Include="reg_sohu_mail.py" />
